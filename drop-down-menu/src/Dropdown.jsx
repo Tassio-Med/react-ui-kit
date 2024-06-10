@@ -1,35 +1,42 @@
-import { useState } from "react"
+import { useState } from "react";
+import PropTypes from "prop-types";
 
-function Dropdown({selected, setSelected}){
-
+function Dropdown({ selected, setSelected }) {
   const [isActive, setIsActive] = useState(false);
-  const options = ["React", "Angular", "Vue"]
+  const options = ["React", "Angular", "Vue"];
 
   return (
     <div className="dropdown">
-      <div className="dropdown-btn"
-        onClick={(e) => setIsActive(!isActive)}
+      <div
+        className="dropdown-btn"
+        onClick={() => setIsActive(!isActive)}
       >
-          {selected}
-        </div>
-      <span className="fas fa-content"></span>
+        {selected}
+      </div>
+      
       {isActive && (
-          <div className="dropdown-content">
-            {options.map((option) => (
-              <div
-              onClick={(e) => {
-                setSelected(option)
-                setIsActive(false)
+        <div className="dropdown-content">
+          {options.map((option, index) => (
+            <div
+              key={index}
+              onClick={() => {
+                setSelected(option);
+                setIsActive(false);
               }}
               className="dropdown-item"
-              >
-                {option}
-              </div>
-            ))}
-          </div>
+            >
+              {option}
+            </div>
+          ))}
+        </div>
       )}
     </div>
-  )
+  );
 }
 
-export default Dropdown
+Dropdown.propTypes = {
+  selected: PropTypes.string.isRequired,
+  setSelected: PropTypes.func.isRequired,
+};
+
+export default Dropdown;
